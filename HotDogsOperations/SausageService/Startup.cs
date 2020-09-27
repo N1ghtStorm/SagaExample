@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using SausageService.Masstransit;
+using SausageService.Repositories;
 
 namespace SausageService
 {
@@ -33,10 +34,14 @@ namespace SausageService
             {
                 x.AddConsumer<SubmitSausageConsumer>();
 
-                x.SetKebabCaseEndpointNameFormatter();
+                //x.SetKebabCaseEndpointNameFormatter();
 
                 x.UsingRabbitMq((context, cfg) => cfg.ConfigureEndpoints(context));
             });
+
+            services.AddScoped<ISausageRepository, SausageRepository>();
+
+            services.AddDbContext<SausageDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

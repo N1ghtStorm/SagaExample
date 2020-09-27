@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BunService.Masstransit;
+using BunService.Repositories;
 using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -33,10 +34,14 @@ namespace BunService
             {
                 x.AddConsumer<SubmitBunConsumer>();
 
-                x.SetKebabCaseEndpointNameFormatter();
+                //x.SetKebabCaseEndpointNameFormatter();
 
                 x.UsingRabbitMq((context, cfg) => cfg.ConfigureEndpoints(context));
             });
+
+            services.AddScoped<IBunRepository, BunRepository>();
+
+            services.AddDbContext<BunDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
