@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BunService.Repositories
 {
-    public interface IBunRepository
+    public class BunRepository : IBunRepository
     {
     }
 }
