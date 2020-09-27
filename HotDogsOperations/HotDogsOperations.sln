@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BunService", "BunService\Bu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SausageService", "SausageService\SausageService.csproj", "{BF1DE311-3973-4345-B437-EE9DBF06F410}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helpers", "Helpers\Helpers.csproj", "{FB5B7DB0-E588-4C1B-9F88-5F12D87FC557}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{BF1DE311-3973-4345-B437-EE9DBF06F410}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF1DE311-3973-4345-B437-EE9DBF06F410}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF1DE311-3973-4345-B437-EE9DBF06F410}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB5B7DB0-E588-4C1B-9F88-5F12D87FC557}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB5B7DB0-E588-4C1B-9F88-5F12D87FC557}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB5B7DB0-E588-4C1B-9F88-5F12D87FC557}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB5B7DB0-E588-4C1B-9F88-5F12D87FC557}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
