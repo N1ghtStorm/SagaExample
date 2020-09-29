@@ -15,11 +15,15 @@ namespace HotDogsOperations.Sagas
         public HotDogStateMachine()
         {
             //InstanceState(x => x.CurrentState);
+            Event(() => SubmitCreateSausage, x => x.CorrelateById(context => context.Message.CorrelationId));
+
+            InstanceState(x => x.CurrentState);
+
             Initially(
                 When(SubmitCreateSausage)
                 .TransitionTo(SausageSubmitted));
 
-            Event(() => SubmitCreateSausage, x => x.CorrelateById(context => context.Message.CorrelationId));
+            
             //ICreateSausage
         }
     }
