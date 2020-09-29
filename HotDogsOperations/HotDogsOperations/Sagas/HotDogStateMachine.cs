@@ -11,9 +11,14 @@ namespace HotDogsOperations.Sagas
     {
 
         public Event<ICreateSausage> SubmitCreateSausage { get; private set; }
+        public State SausageSubmitted { get; set; }
         public HotDogStateMachine()
         {
             //InstanceState(x => x.CurrentState);
+            Initially(
+                When(SubmitCreateSausage)
+                .TransitionTo(SausageSubmitted));
+
             Event(() => SubmitCreateSausage, x => x.CorrelateById(context => context.Message.CorrelationId));
             //ICreateSausage
         }
