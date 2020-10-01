@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HotDogsOperations.Sagas;
+using MassTransit;
+using MassTransit.Saga;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,6 +29,23 @@ namespace HotDogsOperations
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddMassTransit(cfg => 
+            {
+                cfg.SetKebabCaseEndpointNameFormatter();
+                cfg.UsingRabbitMq((context, _cfg) => 
+                {
+                    //_cfg.ConfigureEndpoints(context);
+                    _cfg.ReceiveEndpoint("hot-dog-saga", e => e.StateMachineSaga(
+                        new HotDogStateMachine(),
+                        new InMemorySagaRepository<HotDogState>()
+                        ));
+                });
+
+                //cfg.AddSagaStateMachine<HotDogStateMachine, HotDogState>().InMemoryRepository();
+            });
+
+            services.AddMassTransitHostedService();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
