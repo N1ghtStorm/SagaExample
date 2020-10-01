@@ -1,8 +1,11 @@
-﻿using BunService.Repositories;
+﻿using BunService.Models;
+using BunService.Repositories;
 using Helpers;
 using MassTransit;
+using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -17,9 +20,11 @@ namespace BunService.Masstransit
             _repo = repo;
         }
 
-        public Task Consume(ConsumeContext<ICreateBun> context)
+        public async Task Consume(ConsumeContext<ICreateBun> context)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            await _repo.CreateBun(new Bun { Size = context.Message.Size});
+            await context.Publish<IBunCreated>(new { CorrelationId = context.Message.CorrelationId });
         }
     }
 }

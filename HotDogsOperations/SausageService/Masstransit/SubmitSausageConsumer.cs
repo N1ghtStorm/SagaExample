@@ -1,5 +1,6 @@
 ﻿using Helpers;
 using MassTransit;
+using SausageService.Models;
 using SausageService.Repositories;
 using System;
 using System.Collections.Generic;
@@ -16,9 +17,11 @@ namespace SausageService.Masstransit
         {
             this._repo = repo;
         }
-        public Task Consume(ConsumeContext<ICreateSausage> context)
+        public async Task Consume(ConsumeContext<ICreateSausage> context)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            await _repo.CreateSausage(new Sausage { Size = context.Message.Size });
+            await context.Publish<ISausageCreated>(new { CorrelationId  = context.Message.CorrelationId});
         }
     }
 }
