@@ -11,7 +11,16 @@ namespace HotDogsOperations.Sagas
     {
 
         public Event<ICreateSausage> SubmitCreateSausage { get; private set; }
+        public Event<ICreateSausage> SausageCreataApproved { get; private set; }
+        public Event<ICreateSausage> SubmitCreateBun { get; private set; }
+        public Event<ICreateSausage> BunCreateApproved { get; private set; }
+
         public State SausageSubmitted { get; set; }
+        public State SausageCreated { get; set; }
+        public State BunSubmitted { get; set; }
+        public State BunCreated { get; set; }
+
+
         public HotDogStateMachine()
         {
             //InstanceState(x => x.CurrentState);
