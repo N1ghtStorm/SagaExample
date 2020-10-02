@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace HotDogsOperations.Sagas
 {
-    public class HotDogStateMachine : MassTransitStateMachine<HotDogState>
+    public class HotDogStateMachine : MassTransitStateMachine<HotDogStateInstance>
     {
-
+        public Event<ICreateHotDogSubmit> BeginSaga { get; private set; }
         public Event<ICreateSausage> SubmitCreateSausage { get; private set; }
         public Event<ISausageCreated> SausageCreataApproved { get; private set; }
         public Event<ICreateBun> SubmitCreateBun { get; private set; }
@@ -24,6 +24,7 @@ namespace HotDogsOperations.Sagas
         public HotDogStateMachine()
         {
             //InstanceState(x => x.CurrentState);
+            Event(() => BeginSaga, x => x.CorrelateById(context => context.Message.CorrelationId));
             Event(() => SubmitCreateSausage, x => x.CorrelateById(context => context.Message.CorrelationId));
             Event(() => SausageCreataApproved, x => x.CorrelateById(context => context.Message.CorrelationId));
             Event(() => SubmitCreateBun, x => x.CorrelateById(context => context.Message.CorrelationId));
@@ -32,7 +33,13 @@ namespace HotDogsOperations.Sagas
             InstanceState(x => x.CurrentState);
 
             Initially(
-                When(SubmitCreateSausage)
+                When(BeginSaga)
+                .PublishAsync(async context => 
+                {
+                    //(ICreateSausage)
+                    return new { };
+                })
+                .Then(x => Console.WriteLine("====================SAUSAGE CREATION SUBMITTED======================="))
                 .TransitionTo(SausageSubmitted));
 
             During(SausageSubmitted,

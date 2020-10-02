@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HotDogsOperations.Sagas
 {
-    public class HotDogState : SagaStateMachineInstance
+    public class HotDogStateInstance : SagaStateMachineInstance
     {
         public Guid CorrelationId { get; set; }
         public string CurrentState { get; set; }

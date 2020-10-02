@@ -38,7 +38,7 @@ namespace HotDogsOperations
                     //_cfg.ConfigureEndpoints(context);
                     _cfg.ReceiveEndpoint("hot-dog-saga", e => e.StateMachineSaga(
                         new HotDogStateMachine(),
-                        new InMemorySagaRepository<HotDogState>()
+                        new InMemorySagaRepository<HotDogStateInstance>()
                         ));
                 });
 
